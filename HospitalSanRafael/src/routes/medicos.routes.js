@@ -1,0 +1,3 @@
+// Rutas de Médicos
+// Ej: GET /medicos, POST /medicos, GET /medicos/:id
+// GET /medicos/disponibles?especialidad=...&horario=...

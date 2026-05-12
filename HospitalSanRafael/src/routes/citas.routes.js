@@ -1,0 +1,3 @@
+// Rutas de Citas
+// Ej: POST /citas, PATCH/PUT /citas/:id/estado
+// GET /citas/hoy?departamento=...
