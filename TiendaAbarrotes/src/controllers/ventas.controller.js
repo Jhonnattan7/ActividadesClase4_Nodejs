@@ -3,9 +3,10 @@
 // - Listar ventas del día actual
 // - Detalle completo de una venta
 
-const ventas = [];
-let nextVentaId = 1;
-const { productos } = require('./productos.controller');
+
+const { Venta, ventas, nextVentaId } = require('../models/venta.model');
+const { productos } = require('../models/producto.model');
+let ventaIdCounter = nextVentaId;
 
 // Registrar una venta
 function registrarVenta(req, res) {
@@ -28,13 +29,13 @@ function registrarVenta(req, res) {
 		const prod = productos.find(p => p.id === item.id);
 		prod.cantidad -= item.cantidad;
 	}
-	const venta = {
-		id: nextVentaId++,
+	const venta = new Venta({
+		id: ventaIdCounter++,
 		fecha: new Date(),
 		productos: productosVendidos.map(item => ({ ...item })),
 		total,
 		metodoPago: metodoPago || 'efectivo'
-	};
+	});
 	ventas.push(venta);
 	res.status(201).json(venta);
 }

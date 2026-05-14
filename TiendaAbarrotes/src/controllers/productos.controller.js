@@ -3,8 +3,9 @@
 // - Buscar por nombre o categoría
 // - Filtrar stock bajo (< 5)
 
-const productos = [];
-let nextId = 1;
+
+const { Producto, productos, nextId } = require('../models/producto.model');
+let idCounter = nextId;
 
 // Crear producto
 function crearProducto(req, res) {
@@ -12,8 +13,8 @@ function crearProducto(req, res) {
 	if (!nombre || !categoria || !precio || !cantidad || !unidad) {
 		return res.status(400).json({ error: 'Faltan campos obligatorios' });
 	}
-	const producto = {
-		id: nextId++,
+	const producto = new Producto({
+		id: idCounter++,
 		nombre,
 		categoria,
 		precio,
@@ -21,7 +22,7 @@ function crearProducto(req, res) {
 		unidad,
 		vencimiento: vencimiento || null,
 		proveedor: proveedor || null
-	};
+	});
 	productos.push(producto);
 	res.status(201).json(producto);
 }
