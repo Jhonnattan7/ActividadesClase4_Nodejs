@@ -1,2 +1,16 @@
-// Middleware para control de acceso propuesto
-// Validará si el usuario (médico/enfermera) tiene permisos para ver o editar el expediente clínico de un paciente
+const verificarAccesoMedico = (req, res, next) => {
+
+    const rolUsuario = req.headers['x-role'];
+
+    // Validamos que exista y ser medico
+    if (!rolUsuario || rolUsuario !== 'medico') {
+        return res.status(403).json({
+            error: "Acceso Denegado",
+            mensaje: "Solo los médicos pueden acceder y modificar expedientes clínicos."
+        });
+    }
+
+    next();
+};
+
+module.exports = { verificarAccesoMedico };
